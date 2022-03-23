@@ -12,12 +12,14 @@ public class Tree extends Canvas implements Runnable {
     private Thread objectThread;
     private Handler handler;
     private boolean running;
+    private int branches;
     private Keyboard keyboard = new Keyboard();
 
     public Tree() {
         new Window(500, 500, "Platformer", this);
         handler = new Handler();
         this.addKeyListener(keyboard);
+        handler.addObject(new Background(0, 0, 500, 500, Color.BLACK, ID.Background));
         begin();
     }
 
@@ -99,6 +101,19 @@ public class Tree extends Canvas implements Runnable {
     }
 
     public void begin() {
-        
+        branches = 0;
+        int width = 2, height = 50, x = 250, y = 500;
+        Color color = Color.WHITE;
+        ID id = ID.Branch;
+        //root
+        y -= height;
+        handler.addObject(new Branch(250, 500 - height, width, height, color, id));
+        branches++;
+        branchOut(width, height, x, y, color, id);
+    }
+    public void branchOut(int width, int height, int x, int y, Color color, ID id) {
+        if(branches < 1000) {
+
+        }
     }
 }
