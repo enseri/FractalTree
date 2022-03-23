@@ -4,12 +4,12 @@ import java.awt.Graphics;
 import java.awt.Color;
 
 public class Handler {
-    LinkedList<GameObject> object = new LinkedList<GameObject>();
+    LinkedList<Object> object = new LinkedList<Object>();
 
     public void tick() {
         int i = 0;
         boolean error = false;
-        GameObject tempObject = null;
+        Object tempObject = null;
         while (i < object.size()) {
             do{
                 try{
@@ -25,7 +25,7 @@ public class Handler {
     }
     public void render(Graphics g) {
         int i = 0;
-        GameObject tempObject = null;
+        Object tempObject = null;
         boolean error = false;
         while (i < object.size()) {
                 do{
@@ -40,7 +40,7 @@ public class Handler {
             i++;
         }
     }
-    public void addObject(GameObject object) {
+    public void addObject(Object object) {
         this.object.add(object);
     }
 
@@ -64,10 +64,10 @@ public class Handler {
         this.object.get(index).setHeight(y);
     }
 
-    public void addSpecificObject(GameObject object, int objectLocation) {
+    public void addSpecificObject(Object object, int objectLocation) {
         this.object.add(objectLocation, object);
     }
-    public void replaceObject(int objectLocation, GameObject object){
+    public void replaceObject(int objectLocation, Object object){
         this.object.remove(objectLocation);
         this.object.add(objectLocation, object);
     }

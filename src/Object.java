@@ -1,13 +1,13 @@
 import java.awt.Graphics;
 import java.awt.Color;
 
-public abstract class GameObject {
+public abstract class Object {
 
     protected int x = 0, y = 0, width = 0, height = 0;
     protected ID id;
     protected Color color;
 
-    public GameObject(int x, int y, int width, int height, Color color, ID id) {
+    public Object(int x, int y, int width, int height, Color color, ID id) {
         this.x = x;
         this.y = y;
         this.width = width;

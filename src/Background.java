@@ -1,8 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Branch extends Object{
-    public Branch(int x, int y, int width, int height, Color color, ID id){
+public class Background extends Object{
+    public Background(int x, int y, int width, int height, Color color, ID id){
         super(x, y, width, height, color, id);
     }
 
