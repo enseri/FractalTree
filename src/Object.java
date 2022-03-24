@@ -4,6 +4,7 @@ import java.awt.Color;
 public abstract class Object {
 
     protected int x = 0, y = 0, width = 0, height = 0;
+    protected int[] xPoints, yPoints;
     protected ID id;
     protected Color color;
 
@@ -15,7 +16,24 @@ public abstract class Object {
         this.color = color;
         this.id = id;
     }
-
+    public Object(int[] xPoints, int[] yPoints, Color color, ID id) {
+        this.xPoints = xPoints;
+        this.yPoints = yPoints;
+        this.color = color;
+        this.id = id;
+    }
+    public int[] getXPoints() {
+        return xPoints;
+    }
+    public int[] getYPoints() {
+        return yPoints;
+    }
+    public void setXPoints(int[] xPoints) {
+        this.xPoints = xPoints;
+    }
+    public void setYPoints(int[] yPoints) {
+        this.yPoints = yPoints;
+    }
     public void setColor(Color colorSelected) {
         color = colorSelected;
     }

@@ -2,8 +2,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Branch extends Object{
-    public Branch(int x, int y, int width, int height, Color color, ID id){
-        super(x, y, width, height, color, id);
+    public Branch(int[] xPoints, int[] yPoints, Color color, ID id){
+        super(xPoints, yPoints, color, id);
     }
 
     public void tick(){
@@ -13,6 +13,6 @@ public class Branch extends Object{
 
     public void render(Graphics g) {
         g.setColor(super.getColor());
-        g.fillRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
+        g.drawLine(super.getXPoints()[0], super.getYPoints()[0], super.getXPoints()[1], super.getYPoints()[1]);
     }
 }
