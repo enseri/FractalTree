@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.image.BufferStrategy;
 import java.lang.Math;
 import java.util.concurrent.TimeUnit;
+
+import javafx.scene.effect.ColorAdjust;
+
 import java.util.Scanner;
 import java.util.Random;
 
@@ -104,19 +107,24 @@ public class Tree extends Canvas implements Runnable {
 
     public void begin() {
         branches = 0;
-        int[] xPoints = new int[] { 250, 0 }, yPoints = new int[] { 500, 0 };
+        int[] xPoints = new int[] { 250, 0 }, yPoints = new int[] { 250, 0 };
         int length = 20, width = 5, facing = 1;
         Color color = Color.WHITE;
         ID id = ID.Branch;
         // root
         xPoints[1] = 250;
-        yPoints[1] = 500 - length;
+        yPoints[1] = 250;
         handler.addObject(new Branch(xPoints, yPoints, color, id));
         branches++;
-        branchOut(length, width, facing);
+        branchOut(length, width, facing, xPoints, yPoints, color, id);
     }
 
-    public void branchOut(int length, int width, int facing) {
+    public void branchOut(int length, int width, int facing, int[] xPoints, int[] yPoints, Color color, ID id) {
+        // try {
+        //     TimeUnit.SECONDS.sleep(1);
+        // } catch (InterruptedException E) {
+
+        // }
         int quadrant = 0;
         int quadrantLimit = 0;
         /*
@@ -125,46 +133,83 @@ public class Tree extends Canvas implements Runnable {
          * Quadrant 3: Top Left
          * Quadrant 4: Bottom Left
          */
-        facing = rand.nextInt(360) + 1;
-        if (facing > 0 && facing < 91) {
-            quadrant = 1;
-            quadrantLimit = 90;
+        while (quadrant == 0) {
+            facing = rand.nextInt(360) + 1;
+            if (facing > 0 && facing < 91) {
+                quadrant = 1;
+                quadrantLimit = 90;
+            }
+            if (facing > 90 && facing < 181) {
+                quadrant = 2;
+                quadrantLimit = 180;
+            }
+            if (facing > 180 && facing < 271) {
+                quadrant = 3;
+                quadrantLimit = 270;
+            }
+            if (facing > 270 && facing < 361) {
+                quadrant = 4;
+                quadrantLimit = 360;
+            }
         }
-        if (facing > 90 && facing < 181) {
-            quadrant = 2;
-            quadrantLimit = 180;
-        }
-        if (facing > 180 && facing < 271) {
-            quadrant = 3;
-            quadrantLimit = 270;
-        }
-        if (facing > 270 && facing < 361) {
-            quadrant = 4;
-            quadrantLimit = 360;
-        }
-        if (branches < 1000) {
-            double percentile = facing / quadrantLimit;
+        if (branches < 4060) {
+            double percentile = (double) facing / (double) quadrantLimit;
             double xTurn = 0, yTurn = 0;
-            if ((quadrant == 1 || quadrant == 2) && facing < quadrantLimit / 2)
+            if ((quadrant == 1 || quadrant == 2) && facing < quadrantLimit / 2) {
                 xTurn = percentile;
-            else if ((quadrant == 1 || quadrant == 2) && facing > quadrantLimit / 2)
+                yTurn = 1 - percentile;
+            } else if ((quadrant == 1 || quadrant == 2) && facing > quadrantLimit / 2) {
                 yTurn = percentile;
-            else if (percentile == .5) {
-                xTurn = percentile;
-                yTurn = percentile;
-            }
-            if (quadrant == 3 && facing < quadrantLimit / 2)
-                xTurn = percentile;
-            else if (quadrant == 2 && facing > quadrantLimit / 2)
-                yTurn = percentile;
-            else if (percentile == .5) {
+                xTurn = 1 - percentile;
+            } else if (percentile == .5) {
                 xTurn = percentile;
                 yTurn = percentile;
             }
+            if ((quadrant == 3 || quadrant == 4) && facing < quadrantLimit / 2) {
+                yTurn = percentile;
+                xTurn = 1 - percentile;
+            } else if ((quadrant == 3 || quadrant == 4) && facing > quadrantLimit / 2) {
+                xTurn = percentile;
+                yTurn = 1 - percentile;
+            } else if (percentile == .5) {
+                xTurn = percentile;
+                yTurn = percentile;
+            }
+            if (quadrant == 1) {
+                xTurn = Math.abs(xTurn);
+                yTurn *= -1;
+            }
+            if (quadrant == 2) {
+                xTurn = Math.abs(xTurn);
+                yTurn = Math.abs(yTurn);
+            }
+            if (quadrant == 3) {
+                xTurn *= -1;
+                yTurn *= -1;
+            }
+            if (quadrant == 4) {
+                xTurn *= -1;
+                yTurn = Math.abs(yTurn);
+            }
+            xPoints[0] = xPoints[1];
+            yPoints[0] = yPoints[1];
+            xPoints[1] = xPoints[0] + (int) (xTurn * length);
+            if(xPoints[1] >= 500 || xPoints[1] <= -1) {
+                xPoints[0] = 250;
+                xPoints[1] = 250;
+            }
+            yPoints[1] = yPoints[0] + (int) (yTurn * length);
+            if(yPoints[1] >= 500 || yPoints[1] <= -1) {
+                yPoints[0] = 250;
+                yPoints[1] = 250;
+            }
+            addBranch(xPoints, yPoints, color, id);
+            branchOut(length, width, facing, xPoints, yPoints, color, id);
         }
     }
 
-    public void addBranch(int x, int y, int length, int width, int facing) {
-        handler.addObject(null);
+    public void addBranch(int[] xPoints, int[] yPoints, Color color, ID id) {
+        branches++;
+        handler.addObject(new Branch(xPoints, yPoints, color, id));
     }
 }
