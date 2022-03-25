@@ -116,7 +116,7 @@ public class Tree extends Canvas implements Runnable {
         branches++;
         branchOut(30, length, xPoints, yPoints, color, id);
     }
-    public void branchOut(int facing, int length, int[] xPointsOrigin, int[] yPointsOrigin, Color color, ID id) {
+    public void branchOut(double facing, int length, int[] xPointsOrigin, int[] yPointsOrigin, Color color, ID id) {
         length -= .25 * length;
         double xTurn = .25, yTurn = .75;
         if (length > 5) {
@@ -125,25 +125,212 @@ public class Tree extends Canvas implements Runnable {
             xPoints[0] = xPointsOrigin[1];
             yPoints[0] = yPointsOrigin[1];
             try {
-                TimeUnit.MILLISECONDS.sleep(100);
+                TimeUnit.MILLISECONDS.sleep(10);
             } catch (InterruptedException E) {
 
             }
-            // right diagonal
-            if (xPoints[0] + (int) (.50 * length) > -1 && xPoints[0] + (int) (.50 * length) < 500
-                    && yPoints[0] - (int) (.50 * length) > -1 && yPoints[0] - (int) (.50 * length) < 500) {
-                xPoints[1] = xPoints[0] + (int) (xTurn * length);
-                yPoints[1] = yPoints[0] - (int) (yTurn * length);
-                addBranch(xPoints, yPoints, color, id);
-                branchOut(facing, length, xPoints, yPoints, color, id);
+            if(facing > 360)
+                facing = facing % 360;
+            if(facing == 0)
+                facing = 360;
+            // find quadrant 1
+            int quadrant = 0;
+            if(facing >= 0 && facing < 90)
+            quadrant = 1;
+            if(facing >= 90 && facing < 180)
+            quadrant = 2;
+            if(facing >= 180 && facing < 270)
+            quadrant = 3;
+            if(facing >= 270 && facing < 360)
+            quadrant = 4;
+
+            // find turns 1
+            if(quadrant == 1 && facing < 45) {
+                xTurn = (facing / 90);
+                yTurn = 1 - xTurn;
             }
-            // left diagonal
-            if (xPoints[0] - (int) (.50 * length) > -1 && xPoints[0] - (int) (.50 * length) < 500
-                    && yPoints[0] - (int) (.50 * length) > -1 && yPoints[0] - (int) (.50 * length) < 500) {
-                xPoints[1] = xPoints[0] - (int) (xTurn * length);
-                yPoints[1] = yPoints[0] - (int) (yTurn * length);
+            if(quadrant == 1 && facing > 45) {
+                xTurn = (facing / 90);
+                yTurn = 1 - xTurn;
+            }
+            if(quadrant == 1 && facing == 45) {
+                xTurn = .5;
+                yTurn = .5;
+            }
+            
+            if(quadrant == 2 && facing > 135) {
+                yTurn = (facing / 180);
+                xTurn = 1 - yTurn;
+            }
+            if(quadrant == 2 && facing < 135) {
+                yTurn = (facing / 180);
+                xTurn = 1 - yTurn;
+            }
+            if(quadrant == 2 && facing == 135) {
+                xTurn = .5;
+                yTurn = .5;
+            }
+            
+            if(quadrant == 3 && facing < 225) {
+                xTurn = (facing / 270);
+                yTurn = 1 - xTurn;
+            }
+            if(quadrant == 3 && facing > 225) {
+                xTurn = (facing / 270);
+                yTurn = 1 - xTurn;
+            }
+            if(quadrant == 3 && facing == 225) {
+                xTurn = .5;
+                yTurn = .5;
+            }
+
+            if(quadrant == 4 && facing > 315) {
+                yTurn = (facing / 360);
+                xTurn = 1 - yTurn;
+            }
+            if(quadrant == 4 && facing < 315) {
+                yTurn = (facing / 360);
+                xTurn = 1 - yTurn;
+            }
+            if(quadrant == 4 && facing == 315) {
+                xTurn = .5;
+                yTurn = .5;
+            }
+            
+            switch(quadrant) {
+                case 1:
+                    xTurn = Math.abs(xTurn);
+                    yTurn *= -1;
+                    break;
+                case 2:
+                    xTurn = Math.abs(xTurn);
+                    yTurn = Math.abs(yTurn);
+                    break;
+                case 3:
+                    xTurn *= -1;
+                    yTurn = Math.abs(yTurn);
+                    break;
+                case 4:
+                    xTurn *= -1;
+                    yTurn *= -1;
+                    break;
+                default:
+                    facing = 360;
+                    xTurn = 0;
+                    yTurn = 1;
+                    break;
+            }
+
+            // right diagonal
+
+            if (xPoints[0] + (int) (xTurn * length) > -1 && xPoints[0] + (int) (xTurn * length) < 500
+                    && yPoints[0] + (int) (yTurn * length) > -1 && yPoints[0] + (int) (yTurn * length) < 500) {
+                xPoints[1] = xPoints[0] + (int) (xTurn * length);
+                yPoints[1] = yPoints[0] + (int) (yTurn * length);
                 addBranch(xPoints, yPoints, color, id);
-                branchOut(facing, length, xPoints, yPoints, color, id);
+                branchOut(facing + 15, length, xPoints, yPoints, color, id);
+            }
+
+            // left diagonal
+            facing = facing + 300;
+            if(facing > 360)
+                facing = facing % 360;
+            if(facing == 0)
+                facing = 360;
+            // find quadrant 2
+            quadrant = 0;
+            if(facing >= 360 && facing < 90)
+            quadrant = 1;
+            if(facing >= 90 && facing < 180)
+            quadrant = 2;
+            if(facing >= 180 && facing < 270)
+            quadrant = 3;
+            if(facing >= 270 && facing < 360)
+            quadrant = 4;
+
+            // find turns 2
+            if(quadrant == 1 && facing < 45) {
+                xTurn = (facing / 90);
+                yTurn = 1 - xTurn;
+            }
+            if(quadrant == 1 && facing > 45) {
+                xTurn = (facing / 90);
+                yTurn = 1 - xTurn;
+            }
+            if(quadrant == 1 && facing == 45) {
+                xTurn = .5;
+                yTurn = .5;
+            }
+            
+            if(quadrant == 2 && facing > 135) {
+                yTurn = (facing / 180);
+                xTurn = 1 - yTurn;
+            }
+            if(quadrant == 2 && facing < 135) {
+                yTurn = (facing / 180);
+                xTurn = 1 - yTurn;
+            }
+            if(quadrant == 2 && facing == 135) {
+                xTurn = .5;
+                yTurn = .5;
+            }
+            
+            if(quadrant == 3 && facing < 225) {
+                xTurn = (facing / 270);
+                yTurn = 1 - xTurn;
+            }
+            if(quadrant == 3 && facing > 225) {
+                xTurn = (facing / 270);
+                yTurn = 1 - xTurn;
+            }
+            if(quadrant == 3 && facing == 225) {
+                xTurn = .5;
+                yTurn = .5;
+            }
+
+            if(quadrant == 4 && facing > 315) {
+                yTurn = (facing / 360);
+                xTurn = 1 - yTurn;
+            }
+            if(quadrant == 4 && facing < 315) {
+                yTurn = (facing / 360);
+                xTurn = 1 - yTurn;
+            }
+            if(quadrant == 4 && facing == 315) {
+                xTurn = .5;
+                yTurn = .5;
+            }
+            
+            switch(quadrant) {
+                case 1:
+                    xTurn = Math.abs(xTurn);
+                    yTurn *= -1;
+                    break;
+                case 2:
+                    xTurn = Math.abs(xTurn);
+                    yTurn = Math.abs(yTurn);
+                    break;
+                case 3:
+                    xTurn *= -1;
+                    yTurn = Math.abs(yTurn);
+                    break;
+                case 4:
+                    xTurn *= -1;
+                    yTurn *= -1;
+                    break;
+                default:
+                    facing = 360;
+                    xTurn = 0;
+                    yTurn = 1;
+                    break;
+            }
+
+            if (xPoints[0] + (int) (xTurn * length) > -1 && xPoints[0] + (int) (xTurn * length) < 500
+                    && yPoints[0] + (int) (yTurn * length) > -1 && yPoints[0] + (int) (yTurn * length) < 500) {
+                xPoints[1] = xPoints[0] + (int) (xTurn * length);
+                yPoints[1] = yPoints[0] + (int) (yTurn * length);
+                addBranch(xPoints, yPoints, color, id);
+                branchOut(facing - 15, length, xPoints, yPoints, color, id);
             }
         }
     }
