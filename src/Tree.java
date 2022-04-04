@@ -129,7 +129,7 @@ public class Tree extends Canvas implements Runnable {
             xPoints[0] = xPointsOrigin[1];
             yPoints[0] = yPointsOrigin[1];
             try {
-                TimeUnit.MILLISECONDS.sleep(100);
+                TimeUnit.MILLISECONDS.sleep(20);
             } catch (InterruptedException E) {
 
             }
