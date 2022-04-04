@@ -17,13 +17,11 @@ public class Tree_RUN extends Canvas implements Runnable {
     private Handler handler;
     private boolean running;
     private int branches;
-    private Keyboard keyboard = new Keyboard();
     Random rand = new Random();
 
     public Tree_RUN() {
         new Window(750, 750, "Platformer", this);
         handler = new Handler();
-        this.addKeyListener(keyboard);
         handler.addObject(new Background(0, 0, 750, 750, Color.BLACK, ID.Background));
         begin();
     }
@@ -125,6 +123,7 @@ public class Tree_RUN extends Canvas implements Runnable {
     public void branchOut(double facing, double length, int[] xPointsOrigin, int[] yPointsOrigin, Color color, ID id) {
         length -= 12.5;
         double xTurn = 0, yTurn = 0;
+        color = new Colors(rand.nextInt(13) + 1).getColor();
         if (length > 0) {
             int[] xPoints = new int[2];
             int[] yPoints = new int[2];
@@ -258,7 +257,7 @@ public class Tree_RUN extends Canvas implements Runnable {
                 addBranch(xPoints, yPoints, color, id);
                 branchOut(facing + 30, length, xPoints, yPoints, color, id);
             }
-
+            color = new Colors(rand.nextInt(13) + 1).getColor();
             // left diagonal
             xTurn = 0;
             yTurn = 0;
@@ -384,6 +383,8 @@ public class Tree_RUN extends Canvas implements Runnable {
                 branchOut(facing + 30, length, xPoints, yPoints, color, id);
             }
         }
+        if(branches == 511)
+        running = false;
     }
 
     public void addBranch(int[] xPoints, int[] yPoints, Color color, ID id) {
