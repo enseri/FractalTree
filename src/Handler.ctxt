@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.target=Handler
+comment1.params=
+comment1.target=void\ tick()
+comment10.params=objectLocation\ object
+comment10.target=void\ replaceObject(int,\ java.lang.Object)
+comment11.params=
+comment11.target=void\ reset()
+comment12.params=objectLocation\ x\ y
+comment12.target=void\ moveObject(int,\ int,\ int)
+comment2.params=g
+comment2.target=void\ render(java.awt.Graphics)
+comment3.params=object
+comment3.target=void\ addObject(java.lang.Object)
+comment4.params=index\ color
+comment4.target=void\ setColor(int,\ java.awt.Color)
+comment5.params=index\ x
+comment5.target=void\ setX(int,\ int)
+comment6.params=index\ y
+comment6.target=void\ setY(int,\ int)
+comment7.params=index\ x
+comment7.target=void\ setWidth(int,\ int)
+comment8.params=index\ y
+comment8.target=void\ setHeight(int,\ int)
+comment9.params=object\ objectLocation
+comment9.target=void\ addSpecificObject(java.lang.Object,\ int)
+numComments=13

@@ -1,3 +1,5 @@
+package src;
+
 import java.util.ArrayList;
 import java.awt.Canvas;
 import java.awt.Graphics;
@@ -9,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.Scanner;
 import java.util.Random;
 
-public class Tree extends Canvas implements Runnable {
+public class Tree_RUN extends Canvas implements Runnable {
     private Thread renderThread;
     private Thread objectThread;
     private Handler handler;
@@ -18,7 +20,7 @@ public class Tree extends Canvas implements Runnable {
     private Keyboard keyboard = new Keyboard();
     Random rand = new Random();
 
-    public Tree() {
+    public Tree_RUN() {
         new Window(750, 750, "Platformer", this);
         handler = new Handler();
         this.addKeyListener(keyboard);
@@ -103,7 +105,7 @@ public class Tree extends Canvas implements Runnable {
     }
 
     public static void main(String[] args) throws Exception {
-        new Tree();
+        new Tree_RUN();
     }
 
     public void begin() {

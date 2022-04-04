@@ -1,3 +1,5 @@
+package src;
+
 import java.awt.event.*;
 
 public class Keyboard implements KeyListener {

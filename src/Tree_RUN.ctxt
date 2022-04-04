@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=Tree_RUN
+comment1.params=
+comment1.target=Tree_RUN()
+comment10.params=xPoints\ yPoints\ color\ id
+comment10.target=void\ addBranch(int[],\ int[],\ java.awt.Color,\ ID)
+comment2.params=
+comment2.target=void\ start()
+comment3.params=
+comment3.target=void\ stop()
+comment4.params=
+comment4.target=void\ run()
+comment5.params=
+comment5.target=void\ tick()
+comment6.params=
+comment6.target=void\ render()
+comment7.params=args
+comment7.target=void\ main(java.lang.String[])
+comment8.params=
+comment8.target=void\ begin()
+comment9.params=facing\ length\ xPointsOrigin\ yPointsOrigin\ color\ id
+comment9.target=void\ branchOut(double,\ double,\ int[],\ int[],\ java.awt.Color,\ ID)
+numComments=11

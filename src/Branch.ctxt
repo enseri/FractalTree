@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Branch
+comment1.params=xPoints\ yPoints\ color\ id
+comment1.target=Branch(int[],\ int[],\ java.awt.Color,\ ID)
+comment2.params=
+comment2.target=void\ tick()
+comment3.params=g
+comment3.target=void\ render(java.awt.Graphics)
+numComments=4

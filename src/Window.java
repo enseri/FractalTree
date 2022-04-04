@@ -1,8 +1,10 @@
+package src;
+
 import java.awt.Dimension;
 import javax.swing.*;
 
 public class Window extends JFrame {
-    public Window(int width, int height, String title, Tree tree) {
+    public Window(int width, int height, String title, Tree_RUN tree) {
         JFrame frame = new JFrame(title);
         frame.setPreferredSize(new Dimension(width, height));
         frame.setMaximumSize(new Dimension(width, height));
